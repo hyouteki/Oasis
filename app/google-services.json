@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "278569064689-bhrkjf9qjk2j9u3gc757q3oj5lrail8c.apps.googleusercontent.com",
+          "client_id": "278569064689-mmoi3lr9k206635p347omd1rd2og6o4k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hyouteki.oasis",
-            "certificate_hash": "19e3613dc5dcb7fa7b5a9045e2f3ba73a2f38dee"
+            "certificate_hash": "9da8e45065dea7b5a9f4bab9538587233d6d9378"
           }
         },
         {

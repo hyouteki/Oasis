@@ -19,6 +19,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.hyouteki.oasis.R
+import com.hyouteki.oasis.databinding.ActivitySignInBinding
 import com.hyouteki.oasis.models.User
 import com.hyouteki.oasis.viewmodels.OasisViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,19 +29,21 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class SignInActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySignInBinding
     private lateinit var gsc: GoogleSignInClient
-    private val RC_SIGN_IN: Int = 123
-    private val TAG: String = "Dkdk"
-    private lateinit var signInBtn: Button
-    private lateinit var progressBar: ProgressBar
     private lateinit var auth: FirebaseAuth
+
+    companion object {
+        const val TAG: String = "SIGN_IN_ACTIVITY"
+        private const val SIGN_IN_REQUEST_CODE: Int = 123
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         window.statusBarColor = getColor(R.color.background)
-        signInBtn = findViewById(R.id.sign_in)
-        progressBar = findViewById(R.id.progress)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -51,11 +54,11 @@ class SignInActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        signInBtn.setOnClickListener { signIn() }
+        binding.signIn.setOnClickListener { signIn() }
     }
 
     private fun signIn() {
-        startActivityForResult(gsc.signInIntent, RC_SIGN_IN)
+        startActivityForResult(gsc.signInIntent, SIGN_IN_REQUEST_CODE)
     }
 
     override fun onStart() {
@@ -68,8 +71,8 @@ class SignInActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.i("dkdk3", "$requestCode $resultCode")
-        if (requestCode == RC_SIGN_IN) {
+        Log.i(TAG, "request-code=$requestCode; request-result=$resultCode")
+        if (requestCode == SIGN_IN_REQUEST_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
@@ -78,19 +81,18 @@ class SignInActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)!!
-            Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+            Log.d(TAG, "firebaseAuthWithGoogle=${account.id}")
             firebaseAuthWithGoogle(account.idToken!!)
         } catch (e: ApiException) {
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-
+            Log.w(TAG, "signInResult:failed-code=${e.statusCode}")
         }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
-        Log.i("dkdk2", idToken)
+        Log.i(TAG, "firebaseAuthWithGoogle:idToken=$idToken")
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        signInBtn.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
+        binding.signIn.visibility = View.GONE
+        binding.progress.visibility = View.VISIBLE
         GlobalScope.launch(Dispatchers.IO) {
             val auth = auth.signInWithCredential(credential).await()
             val firebaseUser = auth.user
@@ -98,23 +100,20 @@ class SignInActivity : AppCompatActivity() {
                 updateUI(firebaseUser)
             }
         }
-
     }
 
     private fun updateUI(firebaseUser: FirebaseUser?) {
-        Log.i("dkdk2 firebaseUser", firebaseUser.toString())
+        Log.i(TAG, "firebaseUser=${firebaseUser.toString()}")
         if (firebaseUser != null) {
             val user =
                 User(firebaseUser.uid, firebaseUser.displayName!!, firebaseUser.photoUrl.toString())
             OasisViewModel.addUserIfNotPresent(user)
-
             val mainActivityIntent = Intent(this, MainActivity::class.java)
             startActivity(mainActivityIntent)
             finish()
         } else {
-            signInBtn.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
+            binding.signIn.visibility = View.VISIBLE
+            binding.progress.visibility = View.GONE
         }
     }
-
 }
