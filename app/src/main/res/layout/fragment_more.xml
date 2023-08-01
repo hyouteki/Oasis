@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".fragments.AddFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secBackground"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/rubik_bold"
+            android:textColor="@color/surfaceOnDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nasa Yuzaki" />
+
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_add_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/foreground" />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/foreground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:civ_border_color="@color/secBackground"
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:src="@drawable/test_profile_image" />
+
+    <TextView
+        android:id="@+id/user_bio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="center_vertical"
+        android:textColor="@color/surfaceOnDark"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/user_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/user_image"
+        app:layout_constraintTop_toTopOf="@id/user_image"
+        tools:text="Hey there; I'm using Oasis" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/history_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/secBackground"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/user_image">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/history_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_bold"
+                android:gravity="start|center_vertical"
+                android:text="History"
+                android:textColor="@color/tertiary"
+                android:textSize="22sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/marketplace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@id/history_text">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/marketplace_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="20dp"
+                    app:cardBackgroundColor="@color/purple"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:src="@drawable/ic_home_filled" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:gravity="center_vertical"
+                    android:text="Marketplace"
+                    android:textColor="@color/colorTertiary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/marketplace_icon"
+                    app:layout_constraintEnd_toStartOf="@id/marketplace_count"
+                    app:layout_constraintStart_toEndOf="@id/marketplace_icon"
+                    app:layout_constraintTop_toTopOf="@id/marketplace_icon" />
+
+                <TextView
+                    android:id="@+id/marketplace_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/rubik_semibold"
+                    android:text="..."
+                    android:textColor="@color/colorTertiary"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/happening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@id/marketplace">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/happening_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="20dp"
+                    app:cardBackgroundColor="@color/spaceRed"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:src="@drawable/ic_happening_filled" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:fontFamily="@font/rubik_regular"
+                    android:gravity="center_vertical"
+                    android:text="Happening"
+                    android:textColor="@color/colorTertiary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/happening_icon"
+                    app:layout_constraintEnd_toStartOf="@id/happening_count"
+                    app:layout_constraintStart_toEndOf="@id/happening_icon"
+                    app:layout_constraintTop_toTopOf="@id/happening_icon" />
+
+                <TextView
+                    android:id="@+id/happening_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/rubik_semibold"
+                    android:text="..."
+                    android:textColor="@color/colorTertiary"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

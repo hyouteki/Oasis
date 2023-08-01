@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_cli_message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="300dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/background_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/tertiary"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/text_box_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/rubik_regular"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/background"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hey this is a dummy message for testing my message" />
+
+            <TextView
+                android:id="@+id/time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/rubik_semibold"
+                android:gravity="start"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/background"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_box_left"
+                tools:text="Sep 23, 2023; 23:02:23" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="300dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/background_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/foreground"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/text_box_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/rubik_regular"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/background"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hey this is a dummy message for testing my message" />
+
+            <TextView
+                android:id="@+id/time_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:fontFamily="@font/rubik_semibold"
+                android:gravity="end"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/background"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_box_right"
+                tools:text="Sep 23, 2023; 23:02:23" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

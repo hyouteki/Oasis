@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".fragments.ChooseUserFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secBackground"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/choose_post_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/rubik_bold"
+            android:text="Chat"
+            android:textColor="@color/surfaceOnDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/foreground" />
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/foreground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/foreground"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:trackColor="@color/container" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        tools:listitem="@layout/chat_user_list_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

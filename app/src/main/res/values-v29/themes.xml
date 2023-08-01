@@ -1,0 +1,85 @@
+<resources>
+
+    <style name="Theme.Oasis" parent="Base.Theme.Oasis">
+        <!-- Transparent system bars for edge-to-edge. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/secBackground</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+    </style>
+
+
+    <style name="MaterialAlertDialogStyle" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="colorPrimary">@color/spaceViolet</item>
+        <item name="colorSecondary">@color/foreground</item>
+        <item name="colorSurface">@color/container</item>
+        <item name="colorOnSurface">@color/foreground</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialogTitleStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialogContentStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MaterialAlertDialogButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MaterialAlertDialogButtonStyle</item>
+        <item name="materialAlertDialogTitleIconStyle">@style/MaterialAlertDialogIconStyle</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/rubik_regular</item>
+        <item name="android:textColor">@color/surfaceOnDark</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MaterialAlertDialogIconStyle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Icon">
+        <item name="android:tint">@color/tertiary</item>
+    </style>
+
+    <style name="MaterialAlertDialogTitleStyle" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/tertiary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="MaterialAlertDialogContentStyle" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/surfaceOnDark</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MaterialAlertDialogButtonStyle" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/foreground</item>
+    </style>
+
+    <style name="SwitchStyle" parent="ThemeOverlay.Material3">
+        <item name="colorPrimary">@color/foreground</item>
+    </style>
+
+    <style name="FilterChipStyle" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="checkedIconTint">@color/background</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_tint</item>
+        <item name="android:fontFamily">@font/rubik_black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="chipIconSize">22dp</item>
+    </style>
+
+    <style name="SuggestionChipStyle" parent="@style/Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+    </style>
+
+    <style name="InputChipStyle" parent="@style/Widget.Material3.Chip.Input">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="checkedIconTint">@color/background</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipStrokeColor">@color/chip_stroke_tint</item>
+        <item name="android:fontFamily">@font/rubik_black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="chipIconSize">22dp</item>
+    </style>
+
+    <style name="Custom.BottomNavView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/foreground</item>
+    </style>
+</resources>

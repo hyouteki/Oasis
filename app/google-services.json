@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "278569064689",
+    "project_id": "oasis-23385",
+    "storage_bucket": "oasis-23385.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278569064689:android:3681569cb13832cb4ab150",
+        "android_client_info": {
+          "package_name": "com.hyouteki.oasis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278569064689-bhrkjf9qjk2j9u3gc757q3oj5lrail8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hyouteki.oasis",
+            "certificate_hash": "19e3613dc5dcb7fa7b5a9045e2f3ba73a2f38dee"
+          }
+        },
+        {
+          "client_id": "278569064689-qfqtouolm9nfnns436speo0rnukdpv00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQvmefPAxQpcxWVB-V0d6xcXBxRfZ8luY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278569064689-qfqtouolm9nfnns436speo0rnukdpv00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
