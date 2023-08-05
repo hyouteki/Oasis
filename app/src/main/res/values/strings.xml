@@ -8,4 +8,36 @@
     <string name="lost_and_found">Lost and found</string>
     <string name="event">Event</string>
     <string name="announcement">Announcement</string>
+    <string name="item_name">Item name</string>
+    <string name="currency">&#127850;</string>
+    <string name="_0">0</string>
+    <string name="item_description">Item description</string>
+    <string name="contact">Contact</string>
+    <string name="options">Options</string>
+    <string name="choose_suitable_tags">Choose suitable tags</string>
+    <string name="sell">Sell</string>
+    <string name="lending_time_in_days">Lending time in days</string>
+    <string name="_1">1</string>
+    <string name="submit">Submit</string>
+    <string name="save_as_draft">Save as draft</string>
+
+    <!--Tags-->
+    <string name="tag_found">Found</string>
+    <string name="tag_lost">Lost</string>
+    <string name="tag_food">Food</string>
+    <string name="tag_cloth">Cloth</string>
+    <string name="tag_electronic">Electronic</string>
+    <string name="tag_stationary">Stationary</string>
+    <string name="tag_art">Art</string>
+    <string name="tag_digital">Digital</string>
+    <string name="tag_notes">Notes</string>
+    <string name="tag_furniture">Furniture</string>
+    <string name="tag_other">Other</string>
+    <string name="tag_sell">Sell</string>
+    <string name="tag_lend">Lend</string>
+    <string name="tag_new">New</string>
+    <string name="tag_decent">Decent</string>
+    <string name="tag_refurbished">Refurbished</string>
+    <string name="tag_old">Old</string>
+
 </resources>

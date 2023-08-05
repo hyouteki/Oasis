@@ -17,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.hyouteki.oasis.R
 import com.hyouteki.oasis.bottomsheets.ModalBottomSheet
+import com.hyouteki.oasis.communicators.MainCommunicator
 import com.hyouteki.oasis.databinding.ActivityMainBinding
 import com.hyouteki.oasis.fragments.AddFragment
 import com.hyouteki.oasis.fragments.ChooseUserFragment
@@ -25,7 +26,7 @@ import com.hyouteki.oasis.fragments.MarketplaceFragment
 import com.hyouteki.oasis.fragments.MoreFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainCommunicator {
     private lateinit var binding: ActivityMainBinding
     private val currentUser = FirebaseAuth.getInstance().currentUser!!
     private val fragments = arrayListOf(
@@ -82,10 +83,6 @@ class MainActivity : AppCompatActivity() {
                                 1 -> handleMarketplacePostSortAction()
                                 2 -> handleMarketplacePostSearchAction()
                             }
-                        }
-
-                        private fun handleMarketplacePostAddAction() {
-                            TODO("Not yet implemented")
                         }
 
                         private fun handleMarketplacePostSortAction() {
@@ -274,5 +271,15 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "Signing out")
         startActivity(Intent(this@MainActivity, SignInActivity::class.java))
         finish()
+    }
+
+    override fun handleMarketplacePostAddAction() {
+        val intent = Intent(this, AddMarketplacePostActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        loadFragment()
+        super.onResume()
     }
 }

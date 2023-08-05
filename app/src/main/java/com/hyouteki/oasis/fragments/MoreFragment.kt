@@ -36,7 +36,7 @@ class MoreFragment : Fragment() {
                 Glide.with(binding.userImage.context).load(user.photoUrl).into(binding.userImage)
                 binding.historyCard.visibility = View.VISIBLE
                 binding.linearProgressBar.visibility = View.GONE
-                binding.userName.text = user.name
+                binding.userName.text = "@${user.name}"
                 binding.userBio.text = user.bio
             }
         }

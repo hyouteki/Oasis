@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddMarketplacePostActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/custom_progress_bar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/everything"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/color_strip"
+                        android:layout_width="5dp"
+                        android:layout_height="0dp"
+                        android:background="?attr/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textColor="?attr/colorPrimary"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="\@hyouteki" />
+
+                    <EditText
+                        android:id="@+id/item_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints="@string/item_name"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/open_sans_semi_bold"
+                        android:hint="@string/item_name"
+                        android:inputType="none"
+                        android:maxLength="24"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@id/rupee"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/user_name"
+                        tools:text="Magnificent picture" />
+
+                    <TextView
+                        android:id="@+id/rupee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/currency"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/item_price"
+                        app:layout_constraintEnd_toStartOf="@id/item_price"
+                        app:layout_constraintTop_toTopOf="@id/item_price" />
+
+                    <EditText
+                        android:id="@+id/item_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:autofillHints="price"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/open_sans_semi_bold"
+                        android:hint="@string/_0"
+                        android:inputType="number"
+                        android:maxLength="5"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/item_name"
+                        tools:text="200" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/tag_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/item_desc">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/category_tag_1"
+                            style="@style/Theme.Oasis.Custom.Tags.Type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Other" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/category_tag_2"
+                            style="@style/Theme.Oasis.Custom.Tags.Type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            tools:text="Cloth" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/category_tag_3"
+                            style="@style/Theme.Oasis.Custom.Tags.Type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            tools:text="Electronic" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sell_tag"
+                            style="@style/Theme.Oasis.Custom.Tags.Sell"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Sell" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/condition_tag"
+                            style="@style/Theme.Oasis.Custom.Tags.Condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Good as new" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <EditText
+                        android:id="@+id/item_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:autofillHints="@string/item_description"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:hint="@string/item_description"
+                        android:inputType="none"
+                        android:maxLength="220"
+                        android:maxLines="6"
+                        android:textColor="?attr/colorSecondary"
+                        android:textSize="15sp"
+                        app:layout_constraintTop_toBottomOf="@id/item_name"
+                        tools:ignore="VisualLintTextFieldSize"
+                        tools:text="Magnificent scenery as far as i can see don't know 'bout you bro..." />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/contact"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/colorOnTertiaryContainer"
+                        android:textSize="18sp"
+                        app:backgroundTint="?attr/colorTertiaryContainer"
+                        app:icon="@drawable/chat_outlined"
+                        app:iconGravity="textStart"
+                        app:iconPadding="10dp"
+                        app:iconTint="?attr/colorOnTertiaryContainer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tag_group"
+                        app:rippleColor="?attr/colorTertiary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/options_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/options"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/choose_tags_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/options_text">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/choose_tags_image"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            app:cardBackgroundColor="?attr/colorPrimary"
+                            app:cardCornerRadius="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="4dp"
+                                android:src="@drawable/tags"
+                                app:tint="?attr/colorOnPrimary" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/choose_tags_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:fontFamily="@font/open_sans_semi_bold"
+                            android:text="@string/choose_suitable_tags"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/choose_tags_image"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/choose_tags_desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_regular"
+                            android:text="@string/sell"
+                            android:textColor="?attr/colorOutline"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/choose_tags_text"
+                            app:layout_constraintTop_toBottomOf="@id/choose_tags_text"
+                            tools:text="Food, Cloth, Electronic, Sell, Good as new" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/lend_time_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="10dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/choose_tags_option">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/lend_time_image"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            app:cardBackgroundColor="?attr/colorPrimary"
+                            app:cardCornerRadius="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="4dp"
+                                android:src="@drawable/time"
+                                app:tint="?attr/colorOnPrimary" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/lend_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/open_sans_semi_bold"
+                            android:text="@string/lending_time_in_days"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/lend_time_image"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lend_time_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_regular"
+                            android:text="@string/_1"
+                            android:textColor="?attr/colorOutline"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/lend_time_text"
+                            app:layout_constraintTop_toBottomOf="@id/lend_time_text" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintTop_toBottomOf="@id/options">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/save_as_draft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginStart="10dp"
+                                android:importantForAccessibility="no"
+                                android:padding="5dp"
+                                android:src="@drawable/save"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="?attr/colorOnSecondaryContainer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="center"
+                                android:text="@string/save_as_draft"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/save_as_draft">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/colorPrimary"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginStart="10dp"
+                                android:importantForAccessibility="no"
+                                android:padding="4dp"
+                                android:src="@drawable/check"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="?attr/colorOnPrimary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:gravity="center"
+                                android:text="@string/submit"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:textSize="20sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
