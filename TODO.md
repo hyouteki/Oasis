@@ -24,6 +24,7 @@
 - [ ] update/delete posts
 - [ ] sorting mechanism
 - [ ] history
+- [ ] Rename Conditions of articles { good as new | not half bad | it is what it is }
 
 ## v0.2
 > chat
