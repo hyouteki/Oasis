@@ -3,4 +3,9 @@
     <string name="sign_in_with_google">Sign in with google</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_post_type">Choose post type</string>
+    <string name="confession">Confession</string>
+    <string name="lost_and_found">Lost and found</string>
+    <string name="event">Event</string>
+    <string name="announcement">Announcement</string>
 </resources>

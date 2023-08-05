@@ -30,10 +30,12 @@ class MoreFragment : Fragment() {
 
     private fun handleInitializeUIComponents() {
         binding.historyCard.visibility = View.INVISIBLE
+        binding.linearProgressBar.visibility = View.VISIBLE
         OasisViewModel.getUserDocument(currentUser.uid).addOnSuccessListener {
             it.toObject(User::class.java)?.let { user ->
                 Glide.with(binding.userImage.context).load(user.photoUrl).into(binding.userImage)
                 binding.historyCard.visibility = View.VISIBLE
+                binding.linearProgressBar.visibility = View.GONE
                 binding.userName.text = user.name
                 binding.userBio.text = user.bio
             }

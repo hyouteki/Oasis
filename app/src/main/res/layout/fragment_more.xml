@@ -40,6 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:ellipsize="end"
         android:fontFamily="@font/open_sans_regular"
         android:gravity="center_vertical"
         android:lines="1"
@@ -49,7 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/user_image"
         app:layout_constraintTop_toBottomOf="@id/user_name"
-        android:ellipsize="end"
         tools:text="Hey fellas; I'm using Oasis" />
 
     <androidx.cardview.widget.CardView
@@ -105,8 +105,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="4dp"
-                        app:tint="?attr/colorOnTertiary"
-                        android:src="@drawable/home_filled" />
+                        android:src="@drawable/home_filled"
+                        app:tint="?attr/colorOnTertiary" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -164,8 +164,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="4dp"
-                        app:tint="?attr/colorOnTertiary"
-                        android:src="@drawable/happening_filled" />
+                        android:src="@drawable/happening_filled"
+                        app:tint="?attr/colorOnTertiary" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -202,5 +202,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/linear_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
