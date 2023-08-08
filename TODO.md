@@ -20,8 +20,8 @@
 ## v0.1
 > marketplace
 - [x] add marketplace activity + layout
-- [ ] save as draft and load from draft
-- [ ] load add marketplace post from marketplace fragment
+- [x] save as draft and load from draft
+- [x] load add marketplace post from marketplace fragment
 - [ ] marketplace fragment
 - [ ] update/delete posts
 - [ ] lost/found
