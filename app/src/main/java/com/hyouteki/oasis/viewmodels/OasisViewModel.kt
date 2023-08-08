@@ -9,7 +9,7 @@ interface OasisViewModel {
     companion object {
         // dao objects
         private val userDAO = UserDao()
-        private val postDAO = PostDao()
+        val postDAO = PostDao()
 
         // User based API calls
         fun addUser(user: User) = userDAO.addUser(user)

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class PostDao {
     private val database = FirebaseFirestore.getInstance()
-    private val marketplacePostCollection = database.collection("MarketplacePost")
+    val marketplacePostCollection = database.collection("MarketplacePost")
 
     companion object {
         const val TAG = "POST_DAO"
