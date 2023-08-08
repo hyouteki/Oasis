@@ -1,4 +1,6 @@
 # Oasis
+<img src="https://github.com/Hyouteki/Oasis/assets/108231924/fe059395-ba68-4619-bf00-6d032c850194"  width="200" height="200">
+<br>
 _Connecting students, filling gaps of closed doors by tech to step up the first talk; just like an OASIS in middle of a Vast Dessert; A hope._<br>
 Why join the hassle of using multiple portals on multiple platforms?? Cant thou just use OASIS!
 
