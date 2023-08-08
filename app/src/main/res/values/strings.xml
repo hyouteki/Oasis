@@ -40,4 +40,7 @@
     <string name="tag_refurbished">Refurbished</string>
     <string name="tag_old">Old</string>
 
+    <!--Constants-->
+    <string name="shared_preferences">SHARED_PREFERENCES</string>
+
 </resources>

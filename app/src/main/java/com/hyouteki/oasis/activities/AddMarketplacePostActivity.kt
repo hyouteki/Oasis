@@ -1,6 +1,8 @@
 package com.hyouteki.oasis.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.hyouteki.oasis.R
+import com.hyouteki.oasis.abstractions.MarketplaceTags
 import com.hyouteki.oasis.daos.PostDao
 import com.hyouteki.oasis.databinding.ActivityAddMarketplacePostBinding
 import com.hyouteki.oasis.databinding.LendTimePickerBinding
@@ -24,6 +28,8 @@ class AddMarketplacePostActivity : AppCompatActivity() {
     private var sellTag: String = "Sell"
     private var conditionTag: String? = null
     private var lendTime: String = "1"
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferencesEditor: SharedPreferences.Editor
 
     companion object {
         const val TAG: String = "ADD_MARKETPLACE_POST_ACTIVITY"
@@ -41,9 +47,48 @@ class AddMarketplacePostActivity : AppCompatActivity() {
         binding = ActivityAddMarketplacePostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeSharedPreferences()
         initializeUIComponents()
         initializeArguments()
+        if (postID.isEmpty()) initializeDraft()
         handleTouches()
+    }
+
+    private fun initializeDraft() {
+        sharedPreferences.getString(ITEM_ID, "")?.let {
+            this.postID = it
+        }
+        sharedPreferences.getString(ITEM_NAME, "")?.let {
+            binding.itemName.setText(it)
+        }
+        sharedPreferences.getString(ITEM_DESC, "")?.let {
+            binding.itemDesc.setText(it)
+        }
+        sharedPreferences.getString(ITEM_PRICE, "")?.let {
+            binding.itemPrice.setText(it)
+        }
+        sharedPreferences.getStringSet(CATEGORY_TAGS, mutableSetOf())?.let {
+            for (out in it) {
+                if (out.isNotEmpty()) {
+                    categoryTags.add(out)
+                }
+            }
+        }
+        sharedPreferences.getString(SELL_TAG, "Sell")?.let {
+            this.sellTag = it
+        }
+        sharedPreferences.getString(CONDITION_TAG, "")?.let {
+            if (it.isNotEmpty()) {
+                this.conditionTag = it
+            }
+        }
+        handleTags()
+    }
+
+    private fun initializeSharedPreferences() {
+        sharedPreferences =
+            getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+        sharedPreferencesEditor = sharedPreferences.edit()
     }
 
     @SuppressLint("SetTextI18n")
@@ -87,38 +132,18 @@ class AddMarketplacePostActivity : AppCompatActivity() {
     private fun handleChooseTagsOption() {
         with(MaterialAlertDialogBuilder(this)) {
             setTitle("Choose suitable tags")
-            val marketplaceTagsBinding = MarketplaceTagsBinding.inflate(layoutInflater)
-            setView(marketplaceTagsBinding.root)
-            val categoryChips = arrayListOf(
-                marketplaceTagsBinding.categoryTagFood,
-                marketplaceTagsBinding.categoryTagCloth,
-                marketplaceTagsBinding.categoryTagElectronic,
-                marketplaceTagsBinding.categoryTagStationary,
-                marketplaceTagsBinding.categoryTagArt,
-                marketplaceTagsBinding.categoryTagDigital,
-                marketplaceTagsBinding.categoryTagNotes,
-                marketplaceTagsBinding.categoryTagFurniture,
-                marketplaceTagsBinding.categoryTagOther
-            )
-            val sellChips = arrayListOf(
-                marketplaceTagsBinding.sellTagSell,
-                marketplaceTagsBinding.sellTagLend,
-                marketplaceTagsBinding.sellTagLost,
-                marketplaceTagsBinding.sellTagFound,
-            )
-            val conditionChips = arrayListOf(
-                marketplaceTagsBinding.conditionTagNew,
-                marketplaceTagsBinding.conditionTagDecent,
-                marketplaceTagsBinding.conditionTagRefurbished,
-                marketplaceTagsBinding.conditionTagOld,
-            )
+            val binding = MarketplaceTagsBinding.inflate(layoutInflater)
+            setView(binding.root)
+            val categoryChips = MarketplaceTags.getCategoryChips(binding)
+            val sellChips = MarketplaceTags.getSellChips(binding)
+            val conditionChips = MarketplaceTags.getConditionChips(binding)
             for (chip in categoryChips) {
                 for (tag in categoryTags) {
                     chip.isChecked = chip.isChecked || chip.text.toString() == tag
                 }
             }
             if (sellTag.subSequence(0, 4) == "Lend") {
-                marketplaceTagsBinding.sellTagLend.isChecked = true
+                MarketplaceTags.getSellChipLend(binding).isChecked = true
             } else {
                 for (chip in sellChips) {
                     chip.isChecked = chip.text.toString() == sellTag
@@ -154,7 +179,7 @@ class AddMarketplacePostActivity : AppCompatActivity() {
                         break
                     }
                 }
-                if (marketplaceTagsBinding.categoryTagGroup.checkedChipIds.size > 3) {
+                if (MarketplaceTags.getCategoryTagGroup(binding).checkedChipIds.size > 3) {
                     Toast.makeText(
                         this@AddMarketplacePostActivity,
                         "Select only three category tags",
@@ -169,7 +194,16 @@ class AddMarketplacePostActivity : AppCompatActivity() {
     }
 
     private fun handleSaveAsDraft() {
-        TODO("Not yet implemented")
+        sharedPreferencesEditor.apply {
+            putString(ITEM_ID, postID)
+            putString(ITEM_NAME, binding.itemName.text.toString())
+            putString(ITEM_DESC, binding.itemDesc.text.toString())
+            putString(ITEM_PRICE, binding.itemPrice.text.toString())
+            putStringSet(CATEGORY_TAGS, categoryTags.toMutableSet())
+            putString(SELL_TAG, sellTag)
+            putString(CONDITION_TAG, conditionTag)
+            commit()
+        }
     }
 
     private fun handleSubmitAction() {
