@@ -24,6 +24,7 @@ import com.hyouteki.oasis.fragments.ChooseUserFragment
 import com.hyouteki.oasis.fragments.HappeningFragment
 import com.hyouteki.oasis.fragments.MarketplaceFragment
 import com.hyouteki.oasis.fragments.MoreFragment
+import com.hyouteki.oasis.models.MarketplacePost
 
 
 class MainActivity : AppCompatActivity(), MainCommunicator {
@@ -276,6 +277,10 @@ class MainActivity : AppCompatActivity(), MainCommunicator {
     override fun handleMarketplacePostAddAction() {
         val intent = Intent(this, AddMarketplacePostActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun handleMarketplacePostContactAction(marketplacePost: MarketplacePost) {
+        TODO("Not yet implemented")
     }
 
     override fun onResume() {
