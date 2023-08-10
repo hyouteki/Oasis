@@ -25,6 +25,7 @@
 - [x] marketplace fragment
   - [x] pagination
   - [x] bug fixes [#5](https://github.com/Hyouteki/Oasis/pull/5)
+- [ ] rewrite entire tags logic from scratch
 - [ ] update/delete posts
 - [ ] lost/found
 - [ ] sorting mechanism
