@@ -1,5 +1,6 @@
 package com.hyouteki.oasis.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
+import com.hyouteki.oasis.abstractions.Parameters
 import com.hyouteki.oasis.communicators.MainCommunicator
 import com.hyouteki.oasis.databinding.FragmentMarketplaceBinding
 import com.hyouteki.oasis.databinding.MarketplacePostListItemBinding
@@ -17,22 +19,16 @@ import com.hyouteki.oasis.models.MarketplacePost
 import com.hyouteki.oasis.models.User
 import com.hyouteki.oasis.viewmodels.OasisViewModel
 
-
 class MarketplaceFragment : Fragment() {
     private lateinit var binding: FragmentMarketplaceBinding
     private lateinit var communicator: MainCommunicator
 
     private var collection = OasisViewModel.postDAO.marketplacePostCollection
     private lateinit var adapter: MarketplacePostAdapter
-    private var lastVisible: DocumentSnapshot? = null
-    private var isScrolling = false
-    private var isLastItemReached = false
 
     companion object {
         const val TAG = "MARKETPLACE_FRAGMENT"
-        const val PAGING_LIMIT = 20
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -48,14 +44,16 @@ class MarketplaceFragment : Fragment() {
     private fun setupRecyclerView() {
         collection.orderBy(
             "postID", Query.Direction.DESCENDING
-        ).limit(PAGING_LIMIT.toLong()).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
+        ).limit(Parameters.PAGING_LIMIT.toLong()).get().addOnCompleteListener { task ->
+            if (task.isSuccessful && task.result.documents.isNotEmpty()) {
                 val dataset = arrayListOf<MarketplacePost>()
                 for (document in task.result) {
                     dataset.add(document.toObject(MarketplacePost::class.java))
                 }
                 adapter.updateDataset(dataset)
-                lastVisible = task.result.documents[task.result.size() - 1]
+                var lastVisible: DocumentSnapshot = task.result.documents.last()
+                var isScrolling = false
+                var isLastItemReached = false
                 val onScrollListener: RecyclerView.OnScrollListener =
                     object : RecyclerView.OnScrollListener() {
                         override fun onScrollStateChanged(
@@ -68,28 +66,29 @@ class MarketplaceFragment : Fragment() {
 
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
-                            val linearLayoutManager =
-                                recyclerView.layoutManager as LinearLayoutManager
-                            val firstVisibleItemPosition =
-                                linearLayoutManager.findFirstVisibleItemPosition()
-                            val visibleItemCount = linearLayoutManager.childCount
-                            val totalItemCount = linearLayoutManager.itemCount
-                            if (isScrolling && firstVisibleItemPosition + visibleItemCount == totalItemCount && !isLastItemReached) {
-                                isScrolling = false
-                                val nextQuery: Query = collection.orderBy(
-                                    "postID", Query.Direction.DESCENDING
-                                ).limit(PAGING_LIMIT.toLong())
-                                nextQuery.get().addOnCompleteListener { subTask ->
-                                    if (subTask.isSuccessful) {
-                                        for (subDocument in subTask.result) {
-                                            dataset.add(subDocument.toObject(MarketplacePost::class.java))
+                            if (adapter.itemCount % Parameters.PAGING_LIMIT == 0) {
+                                val linearLayoutManager =
+                                    recyclerView.layoutManager as LinearLayoutManager
+                                val firstVisibleItemPosition =
+                                    linearLayoutManager.findFirstVisibleItemPosition()
+                                val visibleItemCount = linearLayoutManager.childCount
+                                val totalItemCount = linearLayoutManager.itemCount
+                                if (isScrolling && firstVisibleItemPosition + visibleItemCount == totalItemCount && !isLastItemReached) {
+                                    isScrolling = false
+                                    collection.orderBy("postID", Query.Direction.DESCENDING)
+                                        .startAfter(lastVisible)
+                                        .limit(Parameters.PAGING_LIMIT.toLong()).get()
+                                        .addOnCompleteListener { subTask ->
+                                            if (subTask.isSuccessful && subTask.result.documents.isNotEmpty()) {
+                                                for (subDocument in subTask.result) {
+                                                    dataset.add(subDocument.toObject(MarketplacePost::class.java))
+                                                }
+                                                adapter.updateDataset(dataset)
+                                                lastVisible = subTask.result.documents.last()
+                                                isLastItemReached =
+                                                    isLastItemReached || subTask.result.size() < Parameters.PAGING_LIMIT
+                                            }
                                         }
-                                        adapter.updateDataset(dataset)
-                                        lastVisible =
-                                            subTask.result.documents[subTask.result.size() - 1]
-                                        isLastItemReached =
-                                            isLastItemReached || subTask.result.size() < PAGING_LIMIT
-                                    }
                                 }
                             }
                         }
@@ -97,12 +96,12 @@ class MarketplaceFragment : Fragment() {
                 binding.recyclerView.addOnScrollListener(onScrollListener)
             }
         }
+
         adapter = MarketplacePostAdapter()
         binding.recyclerView.adapter = adapter
     }
 
-    inner class MarketplacePostAdapter() :
-        RecyclerView.Adapter<MarketplacePostAdapter.ViewModel>() {
+    inner class MarketplacePostAdapter : RecyclerView.Adapter<MarketplacePostAdapter.ViewModel>() {
 
         private val dataset = arrayListOf<MarketplacePost>()
 
@@ -130,6 +129,7 @@ class MarketplaceFragment : Fragment() {
             )
         }
 
+        @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: ViewModel, position: Int) {
             val model = dataset[position]
             OasisViewModel.getUserDocument(model.userID).addOnSuccessListener {
