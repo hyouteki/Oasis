@@ -1,7 +1,7 @@
 ![OASIS banner image](https://github.com/Hyouteki/Oasis/blob/main/oasis_banner_image.jpg)
 
-[![Download][download-shield]][download-url]
-[![MIT License][license-shield]][license-url]
+[![Download][download-shield]][download-url]&nbsp;
+[![MIT License][license-shield]][license-url]&nbsp;
 [![Metadata][metadata-shield]][metadata-url]
 
 [license-shield]: https://img.shields.io/github/license/hyouteki/Oasis.svg?style=for-the-badge
