@@ -22,7 +22,9 @@
 - [x] add marketplace activity + layout
 - [x] save as draft and load from draft
 - [x] load add marketplace post from marketplace fragment
-- [ ] marketplace fragment
+- [x] marketplace fragment
+  - [x] pagination
+  - [x] bug fixes [#5](https://github.com/Hyouteki/Oasis/pull/5)
 - [ ] update/delete posts
 - [ ] lost/found
 - [ ] sorting mechanism
