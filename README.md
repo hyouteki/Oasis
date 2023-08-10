@@ -1,7 +1,12 @@
 ![OASIS banner image](https://github.com/Hyouteki/Oasis/blob/main/oasis_banner_image.jpg)
 
-Why join the hassle of using multiple portals on multiple platforms?? Cant thou just use OASIS!
+[![Download][download-shield]][download-url]
+[![MIT License][license-shield]][license-url]
+[![Metadata][metadata-shield]][metadata-url]
 
-- [Oasis v0.0](https://github.com/Hyouteki/Oasis/blob/main/Oasis.apk) [Application download link]: Stable verison but not ready for the final release; check [TODO.md](https://github.com/Hyouteki/Oasis/blob/main/TODO.md) to track the progress.
-- [Oasis Dev](https://github.com/Hyouteki/Oasis/tree/master): Ahead of the current stable version but still in development, it will be merged with the main branch once it is stable.
-- [Metadata](https://github.com/Hyouteki/Oasis/blob/main/output-metadata.json)
+[license-shield]: https://img.shields.io/github/license/hyouteki/Oasis.svg?style=for-the-badge
+[license-url]: https://github.com/hyouteki/Oasis/blob/master/LICENSE.md
+[download-shield]: https://img.shields.io/badge/Click-to%20download%20the%20application-purple?style=for-the-badge
+[download-url]: https://github.com/Hyouteki/Oasis/raw/main/Oasis.apk
+[metadata-shield]: https://img.shields.io/badge/Metadata-red?style=for-the-badge
+[metadata-url]: https://github.com/Hyouteki/Oasis/raw/main/output-metadata.json
