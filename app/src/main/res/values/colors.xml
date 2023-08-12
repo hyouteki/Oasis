@@ -9,7 +9,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="grey">#FF25272C</color>
-    <color name="green">#FF1AB965</color>
     <color name="softRed">#FFFA7174</color>
     <color name="darkBg">#FF171B20</color>
     <color name="softGreen">#FFBFE3B4</color>
@@ -62,7 +61,6 @@
 
     <color name="purple">#FF7548C7</color>
     <color name="darkPink">#FF6F2653</color>
-    <color name="lightGreen">#aef4a0</color>
 
 
     <!--material theme builder colors starts here-->
@@ -138,4 +136,6 @@
     <color name="extras_yellowish_dark_onTertiaryContainer">#bfecd9</color>
     <color name="extras_light_bottom_navigation_bar">#f2ecf6</color>
     <color name="extras_dark_bottom_navigation_bar">#2a2831</color>
+    <color name="extras_light_green">#1ab965</color>
+    <color name="extras_dark_green">#aef4a0</color>
 </resources>

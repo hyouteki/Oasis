@@ -1,22 +1,25 @@
 package com.hyouteki.oasis.fragments
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Query
+import com.hyouteki.oasis.R
 import com.hyouteki.oasis.abstractions.MarketplaceTags
-import com.hyouteki.oasis.abstractions.Parameters
+import com.hyouteki.oasis.abstractions.OasisConstants
 import com.hyouteki.oasis.communicators.MainCommunicator
 import com.hyouteki.oasis.databinding.FragmentMarketplaceBinding
-import com.hyouteki.oasis.databinding.MarketplacePostListItemBinding
 import com.hyouteki.oasis.databinding.MarketplaceTagsBinding
 import com.hyouteki.oasis.models.MarketplacePost
 import com.hyouteki.oasis.models.User
@@ -25,12 +28,19 @@ import com.hyouteki.oasis.viewmodels.OasisViewModel
 class MarketplaceFragment : ModalFragment() {
     private lateinit var binding: FragmentMarketplaceBinding
     private lateinit var communicator: MainCommunicator
-
     private lateinit var adapter: MarketplacePostAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
         const val TAG = "MARKETPLACE_FRAGMENT"
-        const val SORT_ACTION_ID = 0
+
+        const val SP_VIEW_LAYOUT = "VIEW_LAYOUT"
+        const val SP_VIEW_LAYOUT_LIST = "SP_VIEW_LAYOUT_LIST"
+        const val SP_VIEW_LAYOUT_CARD = "SP_VIEW_LAYOUT_CARD"
+
+        const val ACTION_SORT = 0
+        const val ACTION_RESTART = 1
+
         private var COLLECTION = OasisViewModel.postDAO.marketplacePostCollection
         private val DEFAULT_QUERY = COLLECTION.orderBy("postID", Query.Direction.DESCENDING)
     }
@@ -41,10 +51,16 @@ class MarketplaceFragment : ModalFragment() {
         binding = FragmentMarketplaceBinding.inflate(inflater, container, false)
         communicator = activity as MainCommunicator
 
+        initializeSharedPreferences()
         setupRecyclerView(DEFAULT_QUERY)
         handleSortUIComponents()
-
         return binding.root
+    }
+
+    private fun initializeSharedPreferences() {
+        sharedPreferences = activity?.getSharedPreferences(
+            OasisConstants.SHARED_PREFERENCES_NAME, OasisConstants.SHARED_PREFERENCES_MODE
+        )!!
     }
 
     private fun handleSortUIComponents() {
@@ -55,7 +71,7 @@ class MarketplaceFragment : ModalFragment() {
     }
 
     private fun setupRecyclerView(query: Query = DEFAULT_QUERY) {
-        query.limit(Parameters.PAGING_LIMIT.toLong()).get().addOnCompleteListener { task ->
+        query.limit(OasisConstants.PAGING_LIMIT.toLong()).get().addOnCompleteListener { task ->
             if (task.isSuccessful && task.result.documents.isNotEmpty()) {
                 val dataset = arrayListOf<MarketplacePost>()
                 for (document in task.result) {
@@ -77,7 +93,7 @@ class MarketplaceFragment : ModalFragment() {
 
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
-                            if (adapter.itemCount % Parameters.PAGING_LIMIT == 0) {
+                            if (adapter.itemCount % OasisConstants.PAGING_LIMIT == 0) {
                                 val linearLayoutManager =
                                     recyclerView.layoutManager as LinearLayoutManager
                                 val firstVisibleItemPosition =
@@ -87,7 +103,7 @@ class MarketplaceFragment : ModalFragment() {
                                 if (isScrolling && firstVisibleItemPosition + visibleItemCount == totalItemCount && !isLastItemReached) {
                                     isScrolling = false
                                     query.startAfter(lastVisible)
-                                        .limit(Parameters.PAGING_LIMIT.toLong()).get()
+                                        .limit(OasisConstants.PAGING_LIMIT.toLong()).get()
                                         .addOnCompleteListener { subTask ->
                                             if (subTask.isSuccessful && subTask.result.documents.isNotEmpty()) {
                                                 for (subDocument in subTask.result) {
@@ -96,7 +112,7 @@ class MarketplaceFragment : ModalFragment() {
                                                 adapter.updateDataset(dataset)
                                                 lastVisible = subTask.result.documents.last()
                                                 isLastItemReached =
-                                                    isLastItemReached || subTask.result.size() < Parameters.PAGING_LIMIT
+                                                    isLastItemReached || subTask.result.size() < OasisConstants.PAGING_LIMIT
                                             }
                                         }
                                 }
@@ -115,27 +131,43 @@ class MarketplaceFragment : ModalFragment() {
 
         private val dataset = arrayListOf<MarketplacePost>()
 
-        inner class ViewModel(marketplacePostListItemBinding: MarketplacePostListItemBinding) :
-            RecyclerView.ViewHolder(marketplacePostListItemBinding.root) {
-            val userName = marketplacePostListItemBinding.userName
-            val itemName = marketplacePostListItemBinding.itemName
-            val itemDesc = marketplacePostListItemBinding.itemDesc
-            val itemPrice = marketplacePostListItemBinding.itemPrice
-            val categoryChips = arrayListOf(
-                marketplacePostListItemBinding.categoryTag1,
-                marketplacePostListItemBinding.categoryTag2,
-                marketplacePostListItemBinding.categoryTag3
+        inner class ViewModel(view: View) : RecyclerView.ViewHolder(view) {
+
+            val userName: TextView = view.findViewById(R.id.user_name)
+            val itemName: TextView = view.findViewById(R.id.item_name)
+            val itemDesc: TextView = view.findViewById(R.id.item_desc)
+            val itemPrice: TextView = view.findViewById(R.id.item_price)
+            val categoryChips: ArrayList<Chip> = arrayListOf(
+                view.findViewById(R.id.category_tag_1),
+                view.findViewById(R.id.category_tag_2),
+                view.findViewById(R.id.category_tag_3)
             )
-            val sellChip = marketplacePostListItemBinding.sellTag
-            val conditionChip = marketplacePostListItemBinding.conditionTag
+            val sellChip: Chip = view.findViewById(R.id.sell_tag)
+            val conditionChip: Chip = view.findViewById(R.id.condition_tag)
         }
 
         override fun onCreateViewHolder(
             parent: ViewGroup, viewType: Int
         ): ViewModel {
-            return ViewModel(
-                MarketplacePostListItemBinding.inflate(layoutInflater, parent, false)
-            )
+            return when (sharedPreferences.getString(SP_VIEW_LAYOUT, SP_VIEW_LAYOUT_CARD)) {
+                SP_VIEW_LAYOUT_CARD -> ViewModel(
+                    LayoutInflater.from(context).inflate(
+                        R.layout.marketplace_post_list_item, parent, false
+                    )
+                )
+
+                SP_VIEW_LAYOUT_LIST -> ViewModel(
+                    LayoutInflater.from(context).inflate(
+                        R.layout.marketplace_post_list_item_list, parent, false
+                    )
+                )
+
+                else -> ViewModel(
+                    LayoutInflater.from(context).inflate(
+                        R.layout.marketplace_post_list_item, parent, false
+                    )
+                )
+            }
         }
 
         @SuppressLint("SetTextI18n")
@@ -255,7 +287,8 @@ class MarketplaceFragment : ModalFragment() {
 
     override fun handleAction(actionId: Int) {
         when (actionId) {
-            SORT_ACTION_ID -> handleSortAction()
+            ACTION_SORT -> handleSortAction()
+            ACTION_RESTART -> setupRecyclerView()
         }
     }
 }
