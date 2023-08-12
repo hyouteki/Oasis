@@ -58,4 +58,8 @@
         <item name="android:background">@color/extras_dark_bottom_navigation_bar</item>
     </style>
 
+    <style name="Theme.Oasis.Money">
+        <item name="android:textColor">@color/extras_dark_green</item>
+    </style>
+
 </resources>

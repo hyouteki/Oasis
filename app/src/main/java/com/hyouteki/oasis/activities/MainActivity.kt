@@ -3,6 +3,7 @@ package com.hyouteki.oasis.activities
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.hyouteki.oasis.R
+import com.hyouteki.oasis.abstractions.OasisConstants
 import com.hyouteki.oasis.bottomsheets.ModalBottomSheet
 import com.hyouteki.oasis.communicators.MainCommunicator
 import com.hyouteki.oasis.databinding.ActivityMainBinding
@@ -23,7 +25,6 @@ import com.hyouteki.oasis.fragments.AddFragment
 import com.hyouteki.oasis.fragments.ChooseUserFragment
 import com.hyouteki.oasis.fragments.HappeningFragment
 import com.hyouteki.oasis.fragments.MarketplaceFragment
-import com.hyouteki.oasis.fragments.ModalFragment
 import com.hyouteki.oasis.fragments.MoreFragment
 import com.hyouteki.oasis.models.MarketplacePost
 
@@ -31,7 +32,8 @@ import com.hyouteki.oasis.models.MarketplacePost
 class MainActivity : AppCompatActivity(), MainCommunicator {
     private lateinit var binding: ActivityMainBinding
     private val currentUser = FirebaseAuth.getInstance().currentUser!!
-    private val fragments = arrayListOf<ModalFragment>(
+    private lateinit var sharedPreferences: SharedPreferences
+    private val fragments = arrayListOf(
         MarketplaceFragment(),
         HappeningFragment(),
         AddFragment(),
@@ -49,8 +51,15 @@ class MainActivity : AppCompatActivity(), MainCommunicator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeSharedPreferences()
         handleBottomNavigationBar()
         initializeUIComponents()
+    }
+
+    private fun initializeSharedPreferences() {
+        sharedPreferences = getSharedPreferences(
+            OasisConstants.SHARED_PREFERENCES_NAME, OasisConstants.SHARED_PREFERENCES_MODE
+        )
     }
 
     private fun initializeUIComponents() {
@@ -74,25 +83,59 @@ class MainActivity : AppCompatActivity(), MainCommunicator {
                 R.id.marketplace -> {
                     class MarketplaceBottomSheet : ModalBottomSheet(
                         arrayListOf(
-                            "Add post", "Sort", "Search"
+                            "Add post", "Sort", "View layout", "Search"
                         ), arrayListOf(
-                            R.drawable.add_box_outlined, R.drawable.sort, R.drawable.search
+                            R.drawable.add_box_outlined,
+                            R.drawable.sort,
+                            R.drawable.view,
+                            R.drawable.search
                         )
                     ) {
                         override fun handleAction(position: Int) {
                             when (position) {
                                 0 -> handleMarketplacePostAddAction()
-                                1 -> handleMarketplacePostSortAction()
-                                2 -> handleMarketplacePostSearchAction()
+                                1 -> fragments[currentFragmentID].handleAction(MarketplaceFragment.ACTION_SORT)
+                                2 -> {
+                                    with(MaterialAlertDialogBuilder(this@MainActivity)) {
+                                        setTitle("Select view layout")
+                                        val viewLayouts = arrayOf("Card view", "List view")
+                                        var checkedItem = when (sharedPreferences.getString(
+                                            MarketplaceFragment.SP_VIEW_LAYOUT,
+                                            MarketplaceFragment.SP_VIEW_LAYOUT_CARD
+                                        )) {
+                                            MarketplaceFragment.SP_VIEW_LAYOUT_CARD -> 0
+                                            MarketplaceFragment.SP_VIEW_LAYOUT_LIST -> 1
+                                            else -> 0
+                                        }
+                                        setSingleChoiceItems(viewLayouts, checkedItem) { _, which ->
+                                            checkedItem = which
+                                        }
+                                        setPositiveButton("Save") { _, _ ->
+                                            sharedPreferences.edit().apply {
+                                                putString(
+                                                    MarketplaceFragment.SP_VIEW_LAYOUT,
+                                                    when (checkedItem) {
+                                                        0 -> MarketplaceFragment.SP_VIEW_LAYOUT_CARD
+                                                        1 -> MarketplaceFragment.SP_VIEW_LAYOUT_LIST
+                                                        else -> MarketplaceFragment.SP_VIEW_LAYOUT_CARD
+                                                    }
+                                                )
+                                                apply()
+                                                commit()
+                                            }
+                                            fragments[currentFragmentID].handleAction(
+                                                MarketplaceFragment.ACTION_RESTART
+                                            )
+                                        }
+                                        setNegativeButton("Cancel") { _, _ -> }
+                                        show()
+                                    }
+                                }
+
+                                3 -> {
+                                    TODO("Not yet implemented")
+                                }
                             }
-                        }
-
-                        private fun handleMarketplacePostSortAction() {
-                            (fragments[currentFragmentID]).handleAction(MarketplaceFragment.SORT_ACTION_ID)
-                        }
-
-                        private fun handleMarketplacePostSearchAction() {
-                            TODO("Not yet implemented")
                         }
                     }
                     MarketplaceBottomSheet().show(

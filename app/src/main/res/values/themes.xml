@@ -162,5 +162,10 @@
         <item name="android:background">@color/extras_light_bottom_navigation_bar</item>
     </style>
 
+
+    <style name="Theme.Oasis.Money">
+        <item name="android:textColor">@color/extras_light_green</item>
+    </style>
+
     <style name="Theme.Oasis" parent="Base.Theme.Oasis" />
 </resources>

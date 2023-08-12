@@ -12,6 +12,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.hyouteki.oasis.R
 import com.hyouteki.oasis.abstractions.MarketplaceTags
+import com.hyouteki.oasis.abstractions.OasisConstants
 import com.hyouteki.oasis.daos.PostDao
 import com.hyouteki.oasis.databinding.ActivityAddMarketplacePostBinding
 import com.hyouteki.oasis.databinding.LendTimePickerBinding
@@ -87,7 +88,7 @@ class AddMarketplacePostActivity : AppCompatActivity() {
 
     private fun initializeSharedPreferences() {
         sharedPreferences =
-            getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE)
+            getSharedPreferences(OasisConstants.SHARED_PREFERENCES_NAME, OasisConstants.SHARED_PREFERENCES_MODE)
         sharedPreferencesEditor = sharedPreferences.edit()
     }
 

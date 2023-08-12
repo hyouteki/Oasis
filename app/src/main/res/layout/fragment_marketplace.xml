@@ -10,6 +10,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:requiresFadingEdge="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/bottom_secondary_bar"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,6 +21,7 @@
         style="@style/Theme.Oasis.SecondaryBottomNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fillViewport="false"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
