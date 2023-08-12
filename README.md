@@ -4,6 +4,8 @@
 [![MIT License][license-shield]][license-url]&nbsp;
 [![Metadata][metadata-shield]][metadata-url]
 
+https://nettle-weaver-f99.notion.site/Oasis-99487fcd0d744fedac389fe893714dec?pvs=4
+
 [license-shield]: https://img.shields.io/github/license/hyouteki/Oasis.svg?style=for-the-badge
 [license-url]: https://github.com/hyouteki/Oasis/blob/master/LICENSE.md
 [download-shield]: https://img.shields.io/badge/Click%20to%20download%20the-Oasis-purple?style=for-the-badge
