@@ -136,4 +136,6 @@
     <color name="extras_yellowish_dark_onSecondaryContainer">#e6e4bf</color>
     <color name="extras_yellowish_dark_tertiaryContainer">#254e40</color>
     <color name="extras_yellowish_dark_onTertiaryContainer">#bfecd9</color>
+    <color name="extras_light_bottom_navigation_bar">#f2ecf6</color>
+    <color name="extras_dark_bottom_navigation_bar">#2a2831</color>
 </resources>

@@ -30,6 +30,7 @@ interface MarketplaceTags {
             binding.conditionTagOld,
         )
 
+        fun getSellChipSell(binding: MarketplaceTagsBinding) = binding.sellTagSell
         fun getSellChipLend(binding: MarketplaceTagsBinding) = binding.sellTagLend
 
         fun getCategoryTagGroup(binding: MarketplaceTagsBinding) = binding.categoryTagGroup
