@@ -25,10 +25,10 @@
 - [x] marketplace fragment
   - [x] pagination
   - [x] bug fixes [#5](https://github.com/Hyouteki/Oasis/pull/5)
-- [ ] rewrite entire tags logic from scratch
+- [ ] sorting mechanism
+  - [x] category tags OR [#6](https://github.com/Hyouteki/Oasis/pull/5)
 - [ ] update/delete posts
 - [ ] lost/found
-- [ ] sorting mechanism
 - [ ] history
 
 ## v0.2
