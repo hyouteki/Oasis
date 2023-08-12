@@ -17,7 +17,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HappeningFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HappeningFragment : Fragment() {
+class HappeningFragment : ModalFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

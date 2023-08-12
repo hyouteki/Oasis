@@ -1,7 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Oasis" parent="Theme.Material3.Light.NoActionBar">
-        <item name = "android:statusBarColor">@color/md_theme_light_background</item>
+        <item name="android:statusBarColor">@color/md_theme_light_background</item>
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
@@ -155,6 +155,11 @@
         <item name="android:textColor">@color/extras_yellowish_light_onSecondaryContainer</item>
         <item name="checkedIconTint">@color/extras_yellowish_light_onSecondaryContainer</item>
         <item name="strokeColor">@color/extras_yellowish_light_secondaryContainer</item>
+    </style>
+
+
+    <style name="Theme.Oasis.SecondaryBottomNavigationBar">
+        <item name="android:background">@color/extras_light_bottom_navigation_bar</item>
     </style>
 
     <style name="Theme.Oasis" parent="Base.Theme.Oasis" />

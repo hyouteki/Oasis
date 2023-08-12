@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.hyouteki.oasis.databinding.FragmentMoreBinding
 import com.hyouteki.oasis.models.User
 import com.hyouteki.oasis.viewmodels.OasisViewModel
 
-class MoreFragment : Fragment() {
+class MoreFragment : ModalFragment() {
     private lateinit var binding: FragmentMoreBinding
     private val currentUser = FirebaseAuth.getInstance().currentUser!!
 

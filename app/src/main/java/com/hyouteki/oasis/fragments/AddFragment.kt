@@ -9,7 +9,7 @@ import com.hyouteki.oasis.activities.MainActivity
 import com.hyouteki.oasis.communicators.MainCommunicator
 import com.hyouteki.oasis.databinding.FragmentAddBinding
 
-class AddFragment : Fragment() {
+class AddFragment : ModalFragment() {
 
     private lateinit var binding: FragmentAddBinding
     private lateinit var communicator: MainCommunicator

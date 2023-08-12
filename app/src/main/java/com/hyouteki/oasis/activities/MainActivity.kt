@@ -23,6 +23,7 @@ import com.hyouteki.oasis.fragments.AddFragment
 import com.hyouteki.oasis.fragments.ChooseUserFragment
 import com.hyouteki.oasis.fragments.HappeningFragment
 import com.hyouteki.oasis.fragments.MarketplaceFragment
+import com.hyouteki.oasis.fragments.ModalFragment
 import com.hyouteki.oasis.fragments.MoreFragment
 import com.hyouteki.oasis.models.MarketplacePost
 
@@ -30,7 +31,7 @@ import com.hyouteki.oasis.models.MarketplacePost
 class MainActivity : AppCompatActivity(), MainCommunicator {
     private lateinit var binding: ActivityMainBinding
     private val currentUser = FirebaseAuth.getInstance().currentUser!!
-    private val fragments = arrayListOf(
+    private val fragments = arrayListOf<ModalFragment>(
         MarketplaceFragment(),
         HappeningFragment(),
         AddFragment(),
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity(), MainCommunicator {
                         }
 
                         private fun handleMarketplacePostSortAction() {
-                            TODO("Not yet implemented")
+                            (fragments[currentFragmentID]).handleAction(MarketplaceFragment.SORT_ACTION_ID)
                         }
 
                         private fun handleMarketplacePostSearchAction() {
